@@ -2,6 +2,7 @@ package ua.hillelit.lms.service;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import ua.hillelit.lms.order.Order;
 
@@ -76,8 +77,13 @@ public class OrderBoardService {
      * Draw orders at order board
      */
     public void draw() {
-        log.info("Num | Name [is drawing in order board]");
-        orders.forEach((num, name) -> log.info("{} | {}", num, name));
+        log.info("Start drawing in order board]");
+        orders.forEach((num,name) -> {
+                    MDC.put("num", num.toString());
+                    MDC.put("name",name);
+                    log.info("Drawing in order board");
+                });
+        MDC.clear();
         log.info("Drawing FINISH");
     }
 
